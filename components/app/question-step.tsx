@@ -110,13 +110,16 @@ export function QuestionStep({
           },
           exit: { opacity: 0, y: -6, transition: { duration: 0.18 } },
         }}
-        className="flex flex-col items-center gap-3 px-8 pt-12"
+        className="flex flex-col items-center gap-3 px-8 pt-10"
       >
-        <div className="flex items-center gap-3">
-          <div className="text-[11px] uppercase tracking-[0.25em] text-zinc-400 tabular-nums">
+        <div className="flex items-center gap-3 rounded-full bg-white/80 px-4 py-1.5 shadow-[0_1px_2px_rgba(0,0,0,0.04)] backdrop-blur-sm">
+          <div className="text-[11px] uppercase tracking-[0.25em] text-zinc-500 tabular-nums">
             {stepIndex + 1} / {totalSteps}
           </div>
-          <Progress value={((stepIndex + 1) / totalSteps) * 100} className="h-1 w-32" />
+          <Progress
+            value={((stepIndex + 1) / totalSteps) * 100}
+            className="h-1.5 w-32"
+          />
         </div>
         <h2 className="mt-2 max-w-2xl text-center text-3xl font-semibold tracking-tight text-zinc-900 md:text-4xl">
           {question.prompt}
@@ -132,7 +135,7 @@ export function QuestionStep({
           show: { transition: { staggerChildren: 0.06, delayChildren: 0.45 } },
           exit: { transition: { staggerChildren: 0.04, staggerDirection: -1 } },
         }}
-        className="pointer-events-auto flex flex-wrap justify-center gap-3 px-8 pb-10"
+        className="pointer-events-auto mx-auto grid w-full max-w-3xl grid-cols-2 gap-3 px-4 pb-10 sm:grid-cols-4 sm:px-6"
       >
         {question.options.map((opt) => (
           <motion.div

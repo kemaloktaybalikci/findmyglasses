@@ -9,17 +9,29 @@ type Props = {
   product: ScoredProduct;
   stage: Stage;
   isTop: boolean;
+  isSelected: boolean;
+  onSelect: (id: string) => void;
 };
 
-export function ProductItem({ product, stage, isTop }: Props) {
+export function ProductItem({
+  product,
+  stage,
+  isTop,
+  isSelected,
+  onSelect,
+}: Props) {
   const showScore = stage === "result";
 
   return (
-    <div className="flex -translate-x-1/2 -translate-y-1/2 flex-col items-center">
-      <motion.div
-        className="w-32"
-        whileHover={{ scale: 1.08, y: -2 }}
-        transition={{ type: "spring", stiffness: 320, damping: 18 }}
+    <button
+      type="button"
+      onClick={() => onSelect(product.id)}
+      className="pointer-events-auto flex -translate-x-1/2 -translate-y-1/2 cursor-pointer flex-col items-center bg-transparent p-0 text-left"
+    >
+      <div
+        className={`w-20 transition-transform duration-200 ease-out will-change-transform hover:-translate-y-0.5 hover:scale-[1.08] sm:w-28 md:w-32 ${
+          isSelected ? "drop-shadow-[0_0_0_2px_rgba(0,0,0,1)]" : ""
+        }`}
       >
         <GlassesSvg
           shape={product.shape}
@@ -27,9 +39,13 @@ export function ProductItem({ product, stage, isTop }: Props) {
           lensColor={product.lensColor}
           className="h-auto w-full"
         />
-      </motion.div>
+      </div>
       <div className="mt-2 flex flex-col items-center">
-        <div className="text-[10px] font-medium uppercase tracking-[0.16em] text-zinc-800">
+        <div
+          className={`text-[10px] font-medium uppercase tracking-[0.16em] ${
+            isSelected ? "text-zinc-900" : "text-zinc-800"
+          }`}
+        >
           {product.name}
         </div>
         {showScore && (
@@ -47,6 +63,6 @@ export function ProductItem({ product, stage, isTop }: Props) {
           </motion.div>
         )}
       </div>
-    </div>
+    </button>
   );
 }
